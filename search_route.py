@@ -29,7 +29,7 @@ def search_route(now_route, dist_table, play_time):
 
     ### exit function
     if last_time > play_time:
-        return copy.copy(now_route)
+        return now_route
 
     ### init_function
     root_route = copy.copy(now_route)
@@ -52,11 +52,12 @@ def search_route(now_route, dist_table, play_time):
         ### append next route
         now_route.append([i, sum_walk_time])
         tmp_route = search_route(now_route, dist_table, play_time)
-        now_route.pop()
 
         ### update route
         if len(res_route) < len(tmp_route):
             res_route = copy.copy(tmp_route)
+
+        now_route.pop()
 
     return res_route
 
