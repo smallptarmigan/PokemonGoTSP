@@ -3,6 +3,7 @@
 #
 
 import math
+import copy
 import time
 
 def calc_dist_table(data, speed):
@@ -21,41 +22,41 @@ def calc_dist_table(data, speed):
 
 ############################################################
 
-def search_route(nowroute, dist_table):
-    # init function
-    mainroute = nowroute
-    sunroute  = []
-    resroute  = []
+def search_route(now_route, dist_table, play_time):
+    ### init_function
+    root_route = copy.copy(now_route)
+    res_route  = copy.copy(now_route)
 
-    # debug output
-    print(mainroute)
-    time.sleep(1)
+    ### search_last_node
+    last_node = None
+    last_time = 0
+    if root_route[-1] != None:
+        last_node = root_route[-1][0]
+        last_time = root_route[-1][1]
+    
+    ### debug_output
+    # print(root_route)
+    # print(last_node,last_time)
+    # time.sleep(1)
 
-    # last_node
-    last = None
-    lasttime = 0
-    if nowroute[-1] != None:
-        last = nowroute[-1][0]
-        lasttime = nowroute[-1][1]
-    print(lasttime)
+    ### exit function
+    if last_time > play_time:
+        # print("[log] over time")
+        return res_route
 
-    # kokode nukeru
-    if lasttime > 10:
-        return nowroute
-
-    # next_route
+    ### next_route
     for i in range(len(dist_table)):
-        nowroute = mainroute
-        nowroute.append([i, mainroute[-1][1]+dist_table[i][last]])
-        temproute = search_route(nowroute, dist_table)
+        now_route = copy.copy(root_route)
+        now_route.append([i, root_route[-1][1]+dist_table[i][last_node]])
+        now_route = search_route(now_route, dist_table, play_time)
 
-        # update
-        if len(resroute) < len(temproute):
-            resroute = temproute
+        ### update route
+        if len(res_route) < len(now_route):
+            res_route = copy.copy(now_route)
 
-        print(resroute)
+    ### 
 
-    return rseroute
+    return res_route
 
 ############################################################
 
@@ -69,7 +70,7 @@ def calculation(data, initposition, speed=66.6, playtime=30):
     dist_table = calc_dist_table(data, speed)
     
     ### search route
-    mainroute = search_route([[0,0]], dist_table)
+    mainroute = search_route([[0,0]], dist_table, playtime)
     
     ### output route
     print("max route len : {0}".format(len(mainroute)))

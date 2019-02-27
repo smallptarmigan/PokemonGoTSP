@@ -26,7 +26,7 @@ if __name__ == '__main__':
         sys.exit()
 
     ### calc route
-    route = sr.calculation(data, (0,0), 66, 30)
+    route = sr.calculation(data, (0,0), 66, 10)
 
     ### output result
     pass
