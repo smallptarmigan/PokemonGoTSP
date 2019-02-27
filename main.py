@@ -9,7 +9,7 @@ import pprint
 import pandas as pd
 
 import search_route as sr
-import generate_map as gm
+# import generate_map as gm
 
 if __name__ == '__main__':
     ### init program and library
@@ -25,12 +25,12 @@ if __name__ == '__main__':
         print("[log] argument is missing")
         sys.exit()
 
-    ### import data 
+    ### import data
     if os.path.isfile(args[1]):
         data = pd.read_csv(args[1], sep=',')
     else:
         print("[log] cannot open file : "+str(args[1]))
-        sys.exit()   
+        sys.exit()
 
     ### calc route
     route = sr.calculation(data, (0,0), 66, int(args[2]))
@@ -44,4 +44,3 @@ if __name__ == '__main__':
     print("[log] Start     Time : {0}".format(start_time))
     print("[log] End       Time : {0}".format(end_time))
     print("[log] Execution Time : {0}".format(end_time-start_time))
-

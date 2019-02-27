@@ -20,29 +20,30 @@ def calc_dist_table(data, speed):
 ############################################################
 
 def search_route(now_route, dist_table, play_time):
+    ### search_last_node
+    last_node = None
+    last_time = 0
+    if now_route[-1] != None:
+        last_node = now_route[-1][0]
+        last_time = now_route[-1][1]
+
+    ### exit function
+    if last_time > play_time:
+        return now_route
+
     ### init_function
     root_route = copy.copy(now_route)
     res_route  = copy.copy(now_route)
 
-    ### search_last_node
-    last_node = None
-    last_time = 0
-    if root_route[-1] != None:
-        last_node = root_route[-1][0]
-        last_time = root_route[-1][1]
-    
-    ### exit function
-    if last_time > play_time:        
-        return res_route
+    ###
+    reverse_route = list(reversed(root_route))
+    node_list = [a[0] for a in reverse_route]
 
     ### next_route
     for i in range(len(dist_table)):
-        now_route = copy.copy(root_route)
         sum_walk_time = root_route[-1][1] + dist_table[i][last_node]
 
         ### visited the spot again
-        reverse_route = list(reversed(root_route))
-        node_list = [a[0] for a in reverse_route]
         if i in node_list:
             again_node = node_list.index(last_node)
             if (sum_walk_time - reverse_route[again_node][1]) < 5:
@@ -50,11 +51,13 @@ def search_route(now_route, dist_table, play_time):
 
         ### append next route
         now_route.append([i, sum_walk_time])
-        now_route = search_route(now_route, dist_table, play_time)
+        tmp_route = search_route(now_route, dist_table, play_time)
 
         ### update route
-        if len(res_route) < len(now_route):
-            res_route = copy.copy(now_route)
+        if len(res_route) < len(tmp_route):
+            res_route = copy.copy(tmp_route)
+
+        now_route.pop()
 
     return res_route
 
@@ -62,12 +65,11 @@ def search_route(now_route, dist_table, play_time):
 
 # DFS
 def calculation(data, initposition, speed=66.6, playtime=30):
-    ### calculation each pokestop distance 
+    ### calculation each pokestop distance
     dist_table = calc_dist_table(data, speed)
-    
+
     ### search route
     mainroute = search_route([[0,0]], dist_table, playtime)
-    
+
     ### return route
     return mainroute
-
