@@ -5,6 +5,7 @@
 import math
 import copy
 import time
+import pprint
 
 def calc_dist_table(data, speed):
     size  = len(data)
@@ -47,14 +48,30 @@ def search_route(now_route, dist_table, play_time):
     ### next_route
     for i in range(len(dist_table)):
         now_route = copy.copy(root_route)
-        now_route.append([i, root_route[-1][1]+dist_table[i][last_node]])
+        sum_walk_time = root_route[-1][1] + dist_table[i][last_node]
+
+        ### visited the spot again
+        reverse_route = list(reversed(root_route))
+        node_list = [a[0] for a in reverse_route]
+        if i in node_list:
+            again_node = node_list.index(last_node)
+            if (sum_walk_time - reverse_route[again_node][1]) < 5:
+                sum_walk_time = reverse_route[again_node][1] + 5
+
+        # print(now_route)
+        # time.sleep(0.01)
+
+        ### append next route
+        now_route.append([i, sum_walk_time])
         now_route = search_route(now_route, dist_table, play_time)
 
         ### update route
         if len(res_route) < len(now_route):
             res_route = copy.copy(now_route)
 
-    ### 
+    ### progress report
+    # if len(root_route) == 2:
+    #     print(root_route)
 
     return res_route
 
@@ -73,8 +90,9 @@ def calculation(data, initposition, speed=66.6, playtime=30):
     mainroute = search_route([[0,0]], dist_table, playtime)
     
     ### output route
+    print("play_time     : {0}".format(playtime))
     print("max route len : {0}".format(len(mainroute)))
-    print(mainroute)
+    pprint.pprint(mainroute)
 
     ### return route
     return mainroute
