@@ -11,6 +11,7 @@ import search_route as sr
 
 if __name__ == '__main__':
     ### init program and library
+    print("[log] Run PokemonGO_TSP")
     start_time = time.time()
 
     args = sys.argv
@@ -20,13 +21,12 @@ if __name__ == '__main__':
     ### import data 
     if os.path.isfile(args[1]):
         data = pd.read_csv(args[1], sep=',')
-        print(data.head())
     else:
         print("[log] cannot open file : "+str(args[1]))
         sys.exit()
 
     ### calc route
-    route = sr.calculation((0,0), 66, 30, data)
+    route = sr.calculation(data, (0,0), 66, 30)
 
     ### output result
     pass
