@@ -35,13 +35,15 @@ def search_route(now_route, dist_table, play_time):
     if last_time > play_time:
         return res_route
 
+    ###
+    reverse_route = list(reversed(root_route))
+    node_list = [a[0] for a in reverse_route]
+
     ### next_route
     for i in range(len(dist_table)):
         sum_walk_time = root_route[-1][1] + dist_table[i][last_node]
 
         ### visited the spot again
-        reverse_route = list(reversed(root_route))
-        node_list = [a[0] for a in reverse_route]
         if i in node_list:
             again_node = node_list.index(last_node)
             if (sum_walk_time - reverse_route[again_node][1]) < 5:
