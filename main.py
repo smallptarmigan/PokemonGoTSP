@@ -5,9 +5,11 @@
 import os
 import sys
 import time
+import pprint
 import pandas as pd
 
 import search_route as sr
+import generate_map as gm
 
 if __name__ == '__main__':
     ### init program and library
@@ -18,19 +20,25 @@ if __name__ == '__main__':
     data = None
     disttable = None
 
+    ### args check
+    if len(args) < 2:
+        print("[log] argument is missing")
+        sys.exit()
+
     ### import data 
     if os.path.isfile(args[1]):
         data = pd.read_csv(args[1], sep=',')
     else:
         print("[log] cannot open file : "+str(args[1]))
-        sys.exit()
+        sys.exit()   
 
     ### calc route
-    route = sr.calculation(data, (0,0), 66, 9)
+    route = sr.calculation(data, (0,0), 66, int(args[2]))
 
     ### output result
-    pass
-    
+    pprint.pprint(route)
+    print("[log] Traveling spot num : {0}".format(len(route)))
+
     ### output run time
     end_time = time.time()
     print("[log] Start     Time : {0}".format(start_time))
