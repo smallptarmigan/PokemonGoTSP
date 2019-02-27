@@ -9,7 +9,7 @@ import pprint
 import pandas as pd
 
 import search_route as sr
-# import generate_map as gm
+import generate_map as gm
 
 if __name__ == '__main__':
     ### init program and library
@@ -38,6 +38,7 @@ if __name__ == '__main__':
     ### output result
     pprint.pprint(route)
     print("[log] Traveling spot num : {0}".format(len(route)))
+    gm.gen_map(data, route)
 
     ### output run time
     end_time = time.time()
