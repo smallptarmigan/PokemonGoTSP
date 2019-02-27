@@ -20,20 +20,20 @@ def calc_dist_table(data, speed):
 ############################################################
 
 def search_route(now_route, dist_table, play_time):
-    ### init_function
-    root_route = copy.copy(now_route)
-    res_route  = copy.copy(now_route)
-
     ### search_last_node
     last_node = None
     last_time = 0
-    if root_route[-1] != None:
-        last_node = root_route[-1][0]
-        last_time = root_route[-1][1]
+    if now_route[-1] != None:
+        last_node = now_route[-1][0]
+        last_time = now_route[-1][1]
 
     ### exit function
     if last_time > play_time:
-        return res_route
+        return copy.copy(now_route)
+
+    ### init_function
+    root_route = copy.copy(now_route)
+    res_route  = copy.copy(now_route)
 
     ###
     reverse_route = list(reversed(root_route))
