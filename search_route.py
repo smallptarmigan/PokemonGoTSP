@@ -8,13 +8,14 @@ import time
 
 def calc_dist_table(data, speed):
     size  = len(data)
-    table = [[0] * size for _ in range(size)]
-    for i in range(size):
-        for j in range(size):
+    size_list = range(size)
+    table = [[0.] * size for _ in size_list]
+    for i in size_list:
+        for j in size_list:
             if i != j:
                 dx = (data.iloc[i, 1] - data.iloc[j, 1]) * 110949
                 dy = (data.iloc[i, 2] - data.iloc[j, 2]) * 90163
-                table[i][j] = math.sqrt(dx * dx + dy * dy) / speed
+                table[i][j] = float(math.sqrt(dx * dx + dy * dy) / speed)
     return table
 
 ############################################################

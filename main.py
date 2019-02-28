@@ -37,7 +37,7 @@ if __name__ == '__main__':
     route = sr.calculation(data, [startpos,0], 66, int(args[2]))
 
     ### output result
-    pprint.pprint(route)
+    pprint.pprint(route[:-1])
     print("[log] Traveling spot num : {0}".format(len(route)))
     gm.gen_map(data, route)
 
