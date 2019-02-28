@@ -1,6 +1,6 @@
-#
-# route search function
-#
+###
+### route search function
+###
 
 import math
 import copy
@@ -28,7 +28,7 @@ def search_route(now_route, dist_table, play_time):
         last_time = now_route[-1][1]
 
     ### exit function
-    if last_time > play_time:
+    if last_time >= play_time:
         return now_route
 
     ### init_function
@@ -69,7 +69,7 @@ def calculation(data, initposition, speed=66.6, playtime=30):
     dist_table = calc_dist_table(data, speed)
 
     ### search route
-    mainroute = search_route([[0,0]], dist_table, playtime)
+    mainroute = search_route([initposition], dist_table, playtime)
 
     ### return route
     return mainroute

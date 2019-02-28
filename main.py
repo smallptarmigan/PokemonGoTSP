@@ -14,6 +14,7 @@ import generate_map as gm
 if __name__ == '__main__':
     ### init program and library
     print("[log] Run PokemonGO_TSP")
+    startpos = 8
     start_time = time.time()
 
     args = sys.argv
@@ -33,7 +34,7 @@ if __name__ == '__main__':
         sys.exit()
 
     ### calc route
-    route = sr.calculation(data, (0,0), 66, int(args[2]))
+    route = sr.calculation(data, [startpos,0], 66, int(args[2]))
 
     ### output result
     pprint.pprint(route)
