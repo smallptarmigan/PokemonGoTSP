@@ -1,8 +1,28 @@
 # PokemonGO TSP
 
+
+### Introduction
 Calculate the circulation method of efficient POKESTOP at PokemonGO using Python3
 
-このプログラムではPython3を用いてポケモンGO内にあるポケストップの効率の良い周回ルートを算出する
+このプログラムではC言語を用いてポケモンGO内にあるポケストップの効率の良い周回ルートを算出する
+
+### Quick Start
+
+1. Clone this repository
+
+```
+git clone git@github.com:smallptarmigan/PokemonGO_TSP.git
+```
+
+2. Run program
+
+```
+python3 main.py [data] [time]
+```
+
+* data 座標csvデータのファイル
+
+* time 散歩時間を分で設定
 
 ### 内部処理
 
@@ -19,6 +39,4 @@ Calculate the circulation method of efficient POKESTOP at PokemonGO using Python
 ### 注意
 
 ポケストップは緯度経度で与えられており、距離は直線距離となるため、実際の歩行距離とは多少のずれが発生します。
-
-
 
